@@ -5,14 +5,31 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
 <title>Mafia Narrator</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Caveat:wght@700&family=Nunito:wght@400;600&display=swap" rel="stylesheet">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Caveat:wght@700&family=Outfit:wght@600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
+:root{
+  --font-heading:'Outfit',system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+  --font-body:'Inter',system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+  --color-bg:#fef6ee;--color-text:#3a2e2a;--color-muted:#8a7a72;
+  --color-good:#8ed4a4;--color-good-bg:#e8f8ee;--color-good-text:#1e8449;
+  --color-bad:#e8a09a;--color-bad-bg:#fff0ef;--color-bad-text:#c0392b;
+  --color-neutral:#f0d584;--color-neutral-bg:#fdfbf0;--color-neutral-text:#b7950b;
+  --color-primary:#fdedb8;--color-primary-border:#d4a843;--color-primary-text:#7a5c10;
+  --color-border:#e0cfc0;
+  --space-1:4px;--space-2:8px;--space-3:12px;--space-4:16px;--space-5:24px;--space-6:32px;
+  --radius-sm:8px;--radius-md:14px;--radius-lg:20px;
+  --shadow-sm:2px 3px 0 rgba(0,0,0,.06);--shadow-md:3px 4px 0 rgba(0,0,0,.08);--shadow-lg:6px 8px 0 rgba(0,0,0,.15);
+}
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 html,body{height:100%;overflow-x:hidden}
-body{font-family:'Nunito',sans-serif;background:#fef6ee;color:#3a2e2a}
-h1,h2,h3,.caveat{font-family:'Caveat',cursive}
-.screen{display:none;min-height:100vh;flex-direction:column}
-.screen.active{display:flex}
+body{font-family:var(--font-body);background:var(--color-bg);color:var(--color-text);overscroll-behavior-y:contain}
+h1,h2,h3,.caveat{font-family:var(--font-heading);letter-spacing:-.01em}
+.btn,.input,.chip,.badge{font-family:var(--font-body)}
+.screen{display:none;min-height:100vh;min-height:100dvh;flex-direction:column}
+.screen.active{display:flex;animation:screenFadeIn .18s ease}
+@media (prefers-reduced-motion: reduce){.screen.active{animation:none}}
+@keyframes screenFadeIn{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:translateY(0)}}
 .container{max-width:480px;margin:0 auto;padding:16px;width:100%}
 .flex-col{display:flex;flex-direction:column}
 .flex-row{display:flex;align-items:center;gap:8px}
@@ -31,10 +48,11 @@ h1,h2,h3,.caveat{font-family:'Caveat',cursive}
 .title-sm{font-size:1.2rem}
 .hidden{display:none!important}
 .text-center{text-align:center}
-.btn{font-family:'Caveat',cursive;font-size:1.3rem;font-weight:700;border:2px solid;border-radius:12px;padding:12px 24px;cursor:pointer;min-height:44px;transition:transform .15s,box-shadow .15s;box-shadow:3px 4px 0 rgba(0,0,0,.10);display:inline-flex;align-items:center;justify-content:center;gap:6px;line-height:1.2;background:none}
+.btn{font-family:var(--font-body);font-size:1.05rem;font-weight:600;border:2px solid;border-radius:var(--radius-sm);padding:12px 24px;cursor:pointer;min-height:44px;touch-action:manipulation;-webkit-tap-highlight-color:transparent;transition:transform .15s,box-shadow .15s;box-shadow:var(--shadow-md);display:inline-flex;align-items:center;justify-content:center;gap:6px;line-height:1.2;background:none}
 .btn:hover:not(:disabled){transform:translateY(-2px);box-shadow:4px 6px 0 rgba(0,0,0,.12)}
-.btn:active:not(:disabled){transform:translateY(0);box-shadow:2px 3px 0 rgba(0,0,0,.10)}
+.btn:active:not(:disabled){transform:translateY(0) scale(.98);box-shadow:2px 3px 0 rgba(0,0,0,.10)}
 .btn:disabled{opacity:.45;cursor:not-allowed;transform:none}
+.btn:focus-visible{outline:3px solid #6b3fa0;outline-offset:2px}
 .btn-primary{background:#fdedb8;border-color:#d4a843;color:#7a5c10}
 .btn-danger{background:#fff0ef;border-color:#e8a09a;color:#c0392b}
 .btn-success{background:#e8f8ee;border-color:#8ed4a4;color:#1e8449}
@@ -43,17 +61,17 @@ h1,h2,h3,.caveat{font-family:'Caveat',cursive}
 .btn-ghost{background:transparent;border-color:#ccc;color:#555;box-shadow:none}
 .btn-sm{font-size:1rem;padding:6px 14px;min-height:36px;border-radius:8px}
 .btn-block{width:100%}
-.card{background:#fff;border:2.5px solid #e8d5c0;border-radius:16px;padding:16px;box-shadow:3px 4px 0 rgba(0,0,0,.08)}
+.card{background:#fff;border:1.5px solid #e8d5c0;border-radius:var(--radius-md);padding:16px;box-shadow:var(--shadow-md)}
 .card-bad{background:#fff7f6;border-color:#e8a09a}
 .card-good{background:#f5fbf7;border-color:#8ed4a4}
 .card-neutral{background:#fdfbf0;border-color:#f0d584}
-.badge{display:inline-block;font-family:'Nunito',sans-serif;font-weight:600;font-size:.75rem;padding:2px 10px;border-radius:20px;border:1.5px solid}
+.badge{display:inline-block;font-family:var(--font-body);font-weight:600;font-size:.75rem;padding:2px 10px;border-radius:20px;border:1.5px solid}
 .badge-bad{background:#fff0ef;border-color:#e8a09a;color:#c0392b}
 .badge-good{background:#e8f8ee;border-color:#8ed4a4;color:#1e8449}
 .badge-neutral{background:#fdfbf0;border-color:#f0d584;color:#b7950b}
 .chip{display:inline-flex;align-items:center;gap:6px;background:#fef6ee;border:2px solid #e8d5c0;border-radius:20px;padding:5px 12px;font-size:.9rem;font-weight:600}
-.chip-remove{cursor:pointer;color:#c0392b;font-size:1.1rem;background:none;border:none;padding:0 0 0 2px;line-height:1}
-.input{font-family:'Nunito',sans-serif;font-size:1rem;border:2px solid #e0cfc0;border-radius:10px;padding:10px 14px;background:#fff;color:#3a2e2a;min-height:44px;width:100%;outline:none;transition:border-color .2s}
+.chip-remove{cursor:pointer;touch-action:manipulation;color:#c0392b;font-size:1.1rem;background:none;border:none;padding:0 0 0 2px;line-height:1}
+.input{font-family:var(--font-body);font-size:1rem;border:2px solid #e0cfc0;border-radius:10px;padding:10px 14px;background:#fff;color:#3a2e2a;min-height:44px;width:100%;outline:none;transition:border-color .2s}
 .input:focus{border-color:#d4a843}
 .divider{border:none;border-top:2px dashed #e0cfc0;margin:16px 0}
 .alert{padding:12px 16px;border-radius:12px;border:2px solid;font-size:.9rem;line-height:1.4}
@@ -70,19 +88,21 @@ h1,h2,h3,.caveat{font-family:'Caveat',cursive}
 .night-title{color:#c8b8e8;font-size:2rem}
 .night-text{color:#d8d0e8;font-size:1.1rem;line-height:1.5}
 .night-header{background:rgba(255,255,255,.05);border-bottom:1px solid rgba(255,255,255,.1);padding:12px 16px;display:flex;align-items:center;gap:10px;position:sticky;top:0;z-index:50;flex-shrink:0}
-.player-btn{background:#fff;border:2px solid #e0cfc0;border-radius:12px;padding:12px 16px;text-align:left;cursor:pointer;font-family:'Nunito',sans-serif;font-size:1rem;font-weight:600;min-height:50px;width:100%;display:flex;align-items:center;gap:10px;transition:background .15s,border-color .15s,transform .1s;box-shadow:2px 3px 0 rgba(0,0,0,.06)}
+.player-btn{background:#fff;border:2px solid #e0cfc0;border-radius:12px;padding:12px 16px;text-align:left;cursor:pointer;touch-action:manipulation;-webkit-tap-highlight-color:transparent;font-family:var(--font-body);font-size:1rem;font-weight:600;min-height:50px;width:100%;display:flex;align-items:center;gap:10px;transition:background .15s,border-color .15s,transform .1s;box-shadow:2px 3px 0 rgba(0,0,0,.06)}
 .player-btn:hover:not(:disabled){background:#fef6ee;border-color:#d4a843;transform:translateY(-1px)}
+.player-btn:active:not(:disabled){transform:scale(.98)}
 .player-btn.selected{background:#fdedb8;border-color:#d4a843}
 .player-btn:disabled{opacity:.35;cursor:not-allowed;transform:none}
-.player-btn-night{background:rgba(255,255,255,.08);border:2px solid rgba(255,255,255,.2);border-radius:12px;padding:12px 16px;cursor:pointer;font-family:'Nunito',sans-serif;font-size:1rem;font-weight:600;min-height:50px;width:100%;display:flex;align-items:center;gap:10px;color:#e8e0f0;transition:background .15s,border-color .15s;margin-bottom:6px}
+.player-btn:focus-visible,.player-btn-night:focus-visible{outline:3px solid #6b3fa0;outline-offset:2px}
+.player-btn-night{background:rgba(255,255,255,.08);border:2px solid rgba(255,255,255,.2);border-radius:12px;padding:12px 16px;cursor:pointer;touch-action:manipulation;-webkit-tap-highlight-color:transparent;font-family:var(--font-body);font-size:1rem;font-weight:600;min-height:50px;width:100%;display:flex;align-items:center;gap:10px;color:#e8e0f0;transition:background .15s,border-color .15s;margin-bottom:6px}
 .player-btn-night:hover:not(:disabled){background:rgba(255,255,255,.15);border-color:rgba(200,184,232,.6)}
 .player-btn-night.selected{background:rgba(200,184,232,.25);border-color:#c8b8e8}
 .player-btn-night:disabled{opacity:.35;cursor:not-allowed}
 .counter-row{display:flex;align-items:center;gap:12px;padding:12px 16px;background:#fff;border:2px solid #e0cfc0;border-radius:12px;box-shadow:2px 3px 0 rgba(0,0,0,.06)}
 .counter-row .role-info{flex:1;min-width:0}
 .counter-row .counter-controls{display:flex;align-items:center;gap:8px;flex-shrink:0}
-.counter-badge{background:#fdedb8;border:2px solid #d4a843;border-radius:20px;width:32px;height:32px;display:flex;align-items:center;justify-content:center;font-family:'Caveat',cursive;font-weight:700;font-size:1.1rem;color:#7a5c10}
-.counter-btn{background:#fef6ee;border:2px solid #e0cfc0;border-radius:8px;width:32px;height:32px;cursor:pointer;font-size:1.2rem;display:flex;align-items:center;justify-content:center;transition:background .1s;font-family:'Nunito',sans-serif;font-weight:600}
+.counter-badge{background:#fdedb8;border:2px solid #d4a843;border-radius:20px;width:32px;height:32px;display:flex;align-items:center;justify-content:center;font-family:var(--font-heading);font-weight:700;font-size:1.05rem;color:#7a5c10}
+.counter-btn{background:#fef6ee;border:2px solid #e0cfc0;border-radius:8px;width:32px;height:32px;cursor:pointer;touch-action:manipulation;-webkit-tap-highlight-color:transparent;font-size:1.2rem;display:flex;align-items:center;justify-content:center;transition:background .1s;font-family:var(--font-body);font-weight:600}
 .counter-btn:hover:not(:disabled){background:#fdedb8;border-color:#d4a843}
 .counter-btn:disabled{opacity:.3;cursor:not-allowed}
 .role-reveal-card{background:#fef6ee;border:3px solid #e8d5c0;border-radius:24px;padding:32px 24px;text-align:center;max-width:340px;width:100%;box-shadow:6px 8px 0 rgba(0,0,0,.15)}
@@ -97,7 +117,7 @@ h1,h2,h3,.caveat{font-family:'Caveat',cursive}
 #floatingPanelBtn:hover{transform:translateY(-2px)}
 #floatingPanelBtn.visible{display:flex}
 .header-bar{background:#fef6ee;border-bottom:2px dashed #e0cfc0;padding:14px 16px;display:flex;align-items:center;gap:10px;position:sticky;top:0;z-index:50;flex-shrink:0}
-.header-title{font-family:'Caveat',cursive;font-size:1.4rem;flex:1}
+.header-title{font-family:var(--font-heading);font-weight:700;font-size:1.15rem;flex:1}
 .collapsible-header{cursor:pointer;display:flex;align-items:center;justify-content:space-between;padding:10px 14px;background:#fef6ee;border:2px solid #e0cfc0;border-radius:10px;font-weight:600;user-select:none}
 .collapsible-body{display:none;padding:12px 0 0}
 .collapsible-body.open{display:block}
@@ -108,10 +128,14 @@ h1,h2,h3,.caveat{font-family:'Caveat',cursive}
 .scroll-list-sm{overflow-y:auto;max-height:40vh}
 .player-status-row{display:flex;align-items:center;gap:8px;padding:8px 12px;border-bottom:1px solid #e0cfc0}
 .player-status-row:last-child{border-bottom:none}
+.player-status-row.dead-row{opacity:.55}
 .player-status-row.dead-row .ps-name{text-decoration:line-through;color:#999}
 .win-bad{background:#2d0a0a;color:#f9d5d3}
 .win-good{background:#0a2d14;color:#c8f0d4}
 .win-jester{background:#1e0a2d;color:#e8d0f8}
+.win-neutral{background:#2d240a;color:#f0e0b0}
+.bottom-bar{position:fixed;left:0;right:0;bottom:0;z-index:80;max-width:480px;margin:0 auto;background:rgba(254,246,238,.86);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border-top:1.5px solid rgba(224,207,192,.9);box-shadow:0 -6px 18px rgba(0,0,0,.07);padding:12px 16px calc(12px + env(safe-area-inset-bottom,0px))}
+@supports not (backdrop-filter: blur(1px)){.bottom-bar{background:#fef6ee}}
 #screen-title{background:#fef6ee;align-items:center;justify-content:center;padding:32px 16px}
 .title-logo{max-width:300px;width:90%;border-radius:16px}
 .couple-card{background:rgba(200,184,232,.15);border:2px solid #c8b8e8;border-radius:20px;padding:28px 20px;text-align:center;margin-bottom:16px}
@@ -127,7 +151,7 @@ h1,h2,h3,.caveat{font-family:'Caveat',cursive}
 <div id="screen-title" class="screen center">
   <div class="flex-col center gap-16" style="max-width:360px;width:100%">
     <img src="mafia_logo.png" alt="Mafia Narrator" class="title-logo" onerror="this.style.display='none'">
-    <p style="font-family:'Caveat',cursive;font-size:20px;color:#8b6e5a;margin-top:-8px;text-align:center">The Narrator's Toolkit</p>
+    <p class="caveat" style="font-size:1.3rem;color:#8b6e5a;margin-top:-8px;text-align:center;font-weight:600">The Narrator's Toolkit</p>
     <div id="resume-banner" class="alert alert-info hidden" style="width:100%">
       <p class="small-text"><strong>Resume previous game?</strong></p>
       <div class="flex-row mt-8" style="gap:8px">
@@ -147,14 +171,15 @@ h1,h2,h3,.caveat{font-family:'Caveat',cursive}
     <button class="btn btn-ghost btn-sm" onclick="showScreen('title');checkResume()">Back</button>
     <span class="header-title">Who's Playing?</span>
   </div>
-  <div class="container flex-col gap-12" style="padding-top:20px">
+  <div class="container flex-col gap-12" style="padding-top:20px;padding-bottom:110px">
     <div class="flex-row gap-8">
       <input type="text" id="playerNameInput" class="input" placeholder="Enter player name..." maxlength="30">
       <button class="btn btn-primary" onclick="addPlayer()" style="white-space:nowrap;flex-shrink:0">Add +</button>
     </div>
     <div id="playerCountLabel" class="small-text muted text-center"></div>
     <div id="playerChips" class="flex-row flex-wrap gap-8" style="min-height:40px"></div>
-    <hr class="divider">
+  </div>
+  <div class="bottom-bar">
     <button id="nextToRolesBtn" class="btn btn-success btn-block" onclick="goToRoles()" disabled>Next: Assign Roles</button>
   </div>
 </div>
@@ -163,7 +188,7 @@ h1,h2,h3,.caveat{font-family:'Caveat',cursive}
     <button class="btn btn-ghost btn-sm" onclick="showScreen('setup-players');renderSetupPlayers()">Back</button>
     <span class="header-title">Assign Roles</span>
   </div>
-  <div class="container flex-col gap-12" style="padding-top:16px">
+  <div class="container flex-col gap-12" style="padding-top:16px;padding-bottom:110px">
     <div class="text-center"><span class="caveat title-sm muted" id="rolesPlayerCountLabel"></span></div>
     <div>
       <p class="small-text muted" style="margin-bottom:8px">Quick Presets:</p>
@@ -175,7 +200,7 @@ h1,h2,h3,.caveat{font-family:'Caveat',cursive}
       <p class="small-text muted text-center mt-8">Difficulty for <em>bad guys</em></p>
     </div>
     <hr class="divider">
-    <div id="roleCounters" class="flex-col gap-8 scroll-list"></div>
+    <div id="roleCounters" class="flex-col gap-8"></div>
     <hr class="divider">
     <div id="rolesError"></div>
     <div class="card" style="padding:12px 16px">
@@ -186,11 +211,12 @@ h1,h2,h3,.caveat{font-family:'Caveat',cursive}
         <span class="small-text">Total: <strong id="summaryTotal">0</strong>/<strong id="summaryMax">0</strong></span>
       </div>
     </div>
+  </div>
+  <div class="bottom-bar">
     <button id="startGameBtn" class="btn btn-danger btn-block" onclick="startGameReveal()">Start Game: Reveal Roles</button>
-    <div style="height:80px"></div>
   </div>
 </div>
-<div id="screen-role-reveal" class="screen" style="height:100dvh;overflow:hidden">
+<div id="screen-role-reveal" class="screen" style="height:100vh;height:100dvh;overflow:hidden">
   <div class="header-bar" style="flex-shrink:0">
     <button class="btn btn-ghost btn-sm" onclick="confirmBackToSetup()">Back</button>
     <span class="header-title">Reveal Roles</span>
@@ -202,7 +228,7 @@ h1,h2,h3,.caveat{font-family:'Caveat',cursive}
     <button id="beginNightBtn" class="btn btn-dark btn-block" onclick="beginNight()" disabled>Begin Night 1</button>
   </div>
 </div>
-<div id="screen-night" class="screen night-bg" style="height:100dvh;overflow:hidden">
+<div id="screen-night" class="screen night-bg" style="height:100vh;height:100dvh;overflow:hidden">
   <div class="night-header" style="flex-shrink:0">
     <button id="nightBackBtn" class="btn btn-ghost btn-sm hidden" onclick="nightBack()" style="color:#c8b8e8;border-color:rgba(255,255,255,.2);flex-shrink:0">← Back</button>
     <span class="caveat night-title" style="font-size:1.2rem;flex:1" id="nightHeaderLabel">Night 1</span>
@@ -215,17 +241,19 @@ h1,h2,h3,.caveat{font-family:'Caveat',cursive}
     <div id="nightStepContent" class="night-step"></div>
   </div>
   <div id="nightConfirmBar" style="flex-shrink:0;padding-top:12px;padding-right:16px;padding-left:16px;padding-bottom:max(24px,env(safe-area-inset-bottom,0px));background:#1a1a2e;border-top:1px solid rgba(255,255,255,.1)">
-    <button id="nightConfirmBtn" class="btn btn-block hidden" onclick="nightConfirm()" style="min-height:52px;background:rgba(255,255,255,.12);border:2px solid rgba(255,255,255,.3);color:#e8e0f0;font-family:'Caveat',cursive;font-size:1.2rem">✓ Confirm</button>
+    <button id="nightConfirmBtn" class="btn btn-block hidden" onclick="nightConfirm()" style="min-height:52px;background:rgba(255,255,255,.12);border:2px solid rgba(255,255,255,.3);color:#e8e0f0;font-weight:600;font-size:1.05rem">✓ Confirm</button>
   </div>
 </div>
 <div id="screen-night-resolution" class="screen">
   <div class="header-bar"><span class="header-title">Morning Briefing</span><button class="btn btn-ghost btn-sm" onclick="openAddPlayerModal()" aria-label="Add player" style="padding:6px 10px;flex-shrink:0">➕👤</button><button class="btn btn-ghost btn-sm" onclick="confirmRestartGame()" aria-label="Restart game" style="padding:6px 10px;flex-shrink:0">🔄</button></div>
-  <div class="container flex-col gap-12" style="padding-top:20px;padding-bottom:80px">
+  <div class="container flex-col gap-12" style="padding-top:20px;padding-bottom:110px">
     <p class="caveat title-md text-center muted">Round <span id="resolutionRound"></span></p>
     <div class="card" style="padding:20px">
       <p class="caveat title-sm" style="margin-bottom:12px;color:#c0392b">Last night...</p>
       <div id="resolutionEvents" class="flex-col gap-8"></div>
     </div>
+  </div>
+  <div class="bottom-bar">
     <button class="btn btn-primary btn-block" onclick="goToDayPhase()">Proceed to Day Vote</button>
   </div>
 </div>
@@ -236,7 +264,7 @@ h1,h2,h3,.caveat{font-family:'Caveat',cursive}
     <div id="voteSection">
       <p class="caveat title-sm" style="margin-bottom:12px">Vote to Eliminate</p>
       <p class="small-text muted" style="margin-bottom:12px;font-style:italic">The village debates. Who do you vote to eliminate?</p>
-      <div id="votePlayerList" class="flex-col gap-8 scroll-list"></div>
+      <div id="votePlayerList" class="flex-col gap-8"></div>
       <div class="flex-row gap-8 mt-12">
         <button class="btn btn-ghost btn-sm" onclick="skipVote()">Skip Vote</button>
         <button class="btn btn-ghost btn-sm" onclick="openOverrideEliminate()" style="margin-left:auto">Override</button>
@@ -250,6 +278,7 @@ h1,h2,h3,.caveat{font-family:'Caveat',cursive}
       <span id="winIcon" class="win-icon" style="font-size:80px;display:block;margin-bottom:16px"></span>
       <h1 class="caveat title-xl" id="winTitle"></h1>
       <p class="caveat title-sm mt-8" id="winSubtitle" style="opacity:.8"></p>
+      <p class="caveat title-sm mt-8" id="cupidResultLine" style="display:none"></p>
     </div>
     <div class="card mt-12">
       <p class="caveat title-sm" style="margin-bottom:12px">Game Summary</p>
@@ -403,7 +432,7 @@ h1,h2,h3,.caveat{font-family:'Caveat',cursive}
   <div class="modal-box">
     <h2 class="caveat title-md" style="margin-bottom:8px" id="alertTitle">Notice</h2>
     <p class="small-text muted" style="margin-bottom:16px" id="alertMsg"></p>
-    <button class="btn btn-primary" onclick="closeModal('modalAlert')">OK</button>
+    <button class="btn btn-primary" id="modalAlertOkBtn">OK</button>
   </div>
 </div>
 <div id="modalAddPlayer" class="modal-backdrop hidden">
@@ -437,7 +466,7 @@ const ROLES=[
   {name:'Healer',emoji:'💊',faction:'good',desc:"Each night protect one player from the Mafia's kill. Cannot block the Assassin.",special:''},
   {name:'Detective',emoji:'🔍',faction:'good',desc:'Each night investigate one player. Narrator privately reveals their true role.',special:''},
   {name:'Vigilante',emoji:'🔫',faction:'good',desc:'Each night optionally shoot one player. Shoot Mafia/Assassin: they die. Shoot innocent: both die.',special:''},
-  {name:'Cupid',emoji:'💘',faction:'good',desc:'Each night link two players in love. If one dies, all in the chain die. Chains grow over time.',special:''},
+  {name:'Cupid',emoji:'💘',faction:'neutral',desc:'Each night link two players in love. If one dies, the other dies of heartbreak. Cupid shares the win with whichever side wins, if both lovers are alive at the end.',special:''},
   {name:'Gunsmith',emoji:'🔧',faction:'good',desc:'Each night give a gun to one player. They may shoot during the day. Self-gift allowed once.',special:''},
   {name:'Spy',emoji:'🕵️',faction:'good',desc:"Each night peek at one player's role (narrator only). The Spy cannot speak - ever.",special:'You cannot speak at all during this game!'},
   {name:'Survivalist',emoji:'🛡️',faction:'good',desc:'Immune to all attacks during Round 1 only.',special:'You are immune to all attacks in Round 1!'},
@@ -447,10 +476,21 @@ const ROLES=[
 const roleByName={};ROLES.forEach(r=>roleByName[r.name]=r);
 const ROLE_ORDER=['Mafia','Assassin','Snitch','Healer','Detective','Vigilante','Cupid','Gunsmith','Spy','Survivalist','Jester','Civilian'];
 const getRD=n=>roleByName[n]||{name:n,emoji:'?',faction:'good',desc:'Unknown.',special:''};
-const isGoodGuy=r=>['Healer','Vigilante','Detective','Cupid','Gunsmith','Spy','Survivalist','Civilian'].includes(r);
-const isBadGuy=r=>['Mafia','Assassin','Snitch'].includes(r);
-const isNeutral=r=>r==='Jester';
-const fc=r=>isBadGuy(r)?'bad':isNeutral(r)?'neutral':'good';
+const fc=r=>{var rd=roleByName[r];return rd?rd.faction:'good';};
+const isGoodGuy=r=>fc(r)==='good';
+const isBadGuy=r=>fc(r)==='bad';
+const isNeutral=r=>fc(r)==='neutral';
+function getSnitchGuessableRoles(){
+  return ROLE_ORDER.filter(function(rn){
+    if(rn==='Civilian')return false;
+    if(!((state.roles[rn]||0)>0))return false;
+    var f=fc(rn);
+    return f==='good'||f==='neutral';
+  });
+}
+function isValidSnitchGuess(role){
+  return !!role&&role!=='Civilian'&&(fc(role)==='good'||fc(role)==='neutral');
+}
 
 const state={
   screen:'title',players:[],roles:{},round:1,phase:'night',
@@ -485,7 +525,17 @@ function showScreen(name){
   if(el)el.classList.add('active');
   state.screen=name;saveState();
   document.getElementById('floatingPanelBtn').classList.toggle('visible',GAMEPLAY.includes(name));
-  window.scrollTo(0,0);
+  var reduceMotion=window.matchMedia&&window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  window.scrollTo({top:0,left:0,behavior:reduceMotion?'auto':'smooth'});
+}
+
+// Shared double-tap / re-entrancy guard for step-advancing actions (Next, Confirm, etc).
+// The lock is always released via finally, even if the wrapped action throws.
+var _navLock=false;
+function guardTap(fn){
+  if(_navLock)return;
+  _navLock=true;
+  try{fn();}finally{setTimeout(function(){_navLock=false;},300);}
 }
 function openModal(id){document.getElementById(id).classList.remove('hidden');}
 function closeModal(id){document.getElementById(id).classList.add('hidden');}
@@ -531,6 +581,9 @@ function previewChainLink(i,j){
   return{members:Array.from(chain).map(idx=>state.players[idx]&&state.players[idx].name).filter(Boolean),already:already};
 }
 function applyChainDeaths(deadIdx,events){
+  // Heartbreak deaths are final: protections were already resolved for the
+  // player who actually died, so lovers cannot be healed or shielded from grief,
+  // and a heartbreak death never triggers a further heartbreak chain reaction.
   const chain=getPlayerChain(deadIdx);
   if(!chain)return;
   const done=new Set([deadIdx]);
@@ -539,16 +592,28 @@ function applyChainDeaths(deadIdx,events){
     done.add(idx);
     const p=state.players[idx];
     if(!p||!p.alive)return;
-    if(p.role==='Survivalist'&&state.round===1&&!state.survivalistUsed){
-      state.survivalistUsed=true;
-      events.push({text:p.name+' was protected by Survivalist immunity from chain death!',type:'shield'});
-      return;
-    }
     p.alive=false;
-    const cause=(state.players[deadIdx]&&state.players[deadIdx].name)||'unknown';
-    events.push({text:p.name+' died of heartbreak - linked in love with '+cause+'.',type:'love'});
-    addLog(p.name+' died for '+cause+'.');
+    p.deathCause='heartbreak';
+    const causeName=(state.players[deadIdx]&&state.players[deadIdx].name)||'unknown';
+    events.push({text:p.name+', heartbroken over '+causeName+"'s death, dies too.",type:'love'});
+    addLog(p.name+' died of heartbreak after '+causeName+'.');
   });
+}
+function killPlayer(name,cause,reasonText,events,opts){
+  opts=opts||{};
+  var p=state.players.find(function(pl){return pl.name===name&&pl.alive;});
+  if(!p)return false;
+  if(!opts.bypassImmunity&&p.role==='Survivalist'&&state.round===1&&!state.survivalistUsed){
+    state.survivalistUsed=true;
+    events.push({text:name+' was protected by Survivalist ability!',type:'shield'});
+    return false;
+  }
+  p.alive=false;
+  p.deathCause=cause;
+  events.push({text:reasonText,type:'death',name:name,role:p.role,cause:cause});
+  addLog(name+' ('+p.role+') - '+reasonText);
+  applyChainDeaths(state.players.indexOf(p),events);
+  return true;
 }
 
 function checkResume(){
@@ -593,11 +658,12 @@ function addPlayer(){
   state.setupPlayers.push(name);inp.value='';inp.focus();renderSetupPlayers();saveState();
 }
 function removePlayer(i){state.setupPlayers.splice(i,1);renderSetupPlayers();saveState();}
-function goToRoles(){
+function goToRoles(){guardTap(function(){
+  if(document.activeElement&&document.activeElement.blur)document.activeElement.blur();
   if(state.setupPlayers.length<5||state.setupPlayers.length>30)return;
   state.players=state.setupPlayers.map(function(name){return{name:name,role:'',alive:true,hasGun:false,immunity:false};});
   showScreen('setup-roles');renderSetupRoles();
-}
+});}
 
 function initRoles(){if(!Object.keys(state.roles).length){ROLE_ORDER.forEach(r=>state.roles[r]=0);state.roles.Civilian=state.players.length;}}
 function applyPreset(type){
@@ -678,9 +744,7 @@ function renderRoleReveal(){
   var beginBtn=document.getElementById('beginNightBtn');
   if(beginBtn){beginBtn.disabled=rev!==tot;beginBtn.textContent='Begin Night 1'+(rev===tot?'':' ('+rev+'/'+tot+' revealed)');}
 }
-var _revDB=false;
-function revealRole(idx){
-  if(_revDB)return;_revDB=true;setTimeout(function(){_revDB=false;},500);
+function revealRole(idx){guardTap(function(){
   var p=state.players[idx],rd=getRD(p.role),f=fc(p.role);
   document.getElementById('revealIcon').textContent=rd.emoji;
   document.getElementById('revealRoleName').textContent=p.role;
@@ -689,7 +753,7 @@ function revealRole(idx){
   document.getElementById('revealSpecialNote').textContent=rd.special||'';
   document.getElementById('roleRevealCard').className='role-reveal-card role-card-reveal card-'+f;
   state._pendingRevealIdx=idx;openModal('modalRoleReveal');
-}
+});}
 function closeRoleReveal(){
   closeModal('modalRoleReveal');
   if(state._pendingRevealIdx!==undefined){state.revealedPlayers[state._pendingRevealIdx]=true;saveState();}
@@ -697,10 +761,10 @@ function closeRoleReveal(){
 }
 function confirmBackToSetup(){openModal('modalConfirmBack');}
 function doBackToSetup(){closeModal('modalConfirmBack');showScreen('setup-roles');renderSetupRoles();}
-function beginNight(){
+function beginNight(){guardTap(function(){
   state.phase='night';state.nightLog=[];state.nightActions={};state.nightStepIdx=0;state.nightStepHistory=[];
   showScreen('night');renderNightPhase();
-}
+});}
 
 var nightSteps=[];
 var nightUIState={};
@@ -832,11 +896,11 @@ function renderNightStep(){
       html+='<button class="player-btn-night'+(isSel?' selected':'')+'" data-selval="'+ea(p.name)+'" onclick="nightStage(\''+step.resultKey+'\',\''+ea(p.name)+'\')">'+esc(p.name)+'</button>';
     });
   } else if(step.action==='snitch'){
+    var guessableRoles=getSnitchGuessableRoles();
     if(nightUIState.snitchPhase==='role'){
       var stagedSnitch=nightUIState.staged&&nightUIState.staged.val?nightUIState.staged.val.guessedRole:null;
       html+='<p class="night-text" style="margin-bottom:12px">Guess '+esc(nightUIState.snitchTarget)+"'s role:</p>";
-      // Spy is never in the Snitch's guess list
-      ROLE_ORDER.filter(function(rn){return rn!=='Spy';}).forEach(function(rn){
+      guessableRoles.forEach(function(rn){
         var isSel=stagedSnitch===rn;
         html+='<button class="player-btn-night'+(isSel?' selected':'')+'" data-selval="'+ea(rn)+'" onclick="snitchPickRole(\''+ea(rn)+'\')">'+getRD(rn).emoji+' '+rn+'</button>';
       });
@@ -844,6 +908,9 @@ function renderNightStep(){
       html+='<p class="night-text" style="margin-bottom:12px">Select a player to guess:</p>';
       alive.forEach(function(p){html+='<button class="player-btn-night" onclick="snitchPickPlayer(\''+ea(p.name)+'\')">'+esc(p.name)+'</button>';});
       html+='<button class="btn btn-ghost btn-block mt-12" style="color:#c8b8e8" onclick="nightStage(\'snitchGuess\',null)">Skip</button>';
+    } else if(!guessableRoles.length){
+      html+='<p class="night-text" style="margin-bottom:16px">There are no valid roles for the Snitch to guess this game. Skip this action.</p>';
+      html+='<button class="btn btn-ghost btn-block" data-selval="__skip__" onclick="nightStage(\'snitchGuess\',null)">😴 Skip</button>';
     } else {
       html+='<p class="night-text" style="margin-bottom:16px">'+step.text+'</p>';
       html+='<button class="player-btn-night" onclick="nightUIState.snitchPhase=\'player\';renderNightStep()">🐀 Yes, make a guess</button>';
@@ -915,7 +982,7 @@ function cupidPreview(){
 }
 function cupidConfirmLink(){nightUIState.cupidPhase='couple-reveal';renderNightStep();}
 
-function nightAdvance(){
+function nightAdvance(){guardTap(function(){
   document.getElementById('nightConfirmBtn').classList.add('hidden');
   state.nightStepHistory.push({
     stepIdx:state.nightStepIdx,
@@ -923,9 +990,9 @@ function nightAdvance(){
     uiState:JSON.parse(JSON.stringify(nightUIState||{}))
   });
   nightUIState={};state.nightStepIdx++;saveState();
-  if(state.nightStepIdx>=nightSteps.length){resolveNight();return;}
+  if(state.nightStepIdx>=nightSteps.length){resolveNightCore();return;}
   renderNightStep();
-}
+});}
 function nightBack(){
   document.getElementById('nightConfirmBtn').classList.add('hidden');
   nightUIState.staged=null;
@@ -945,18 +1012,10 @@ function nightBack(){
 function snitchPickPlayer(name){nightUIState.snitchTarget=name;nightUIState.snitchPhase='role';nightUIState.staged=null;document.getElementById('nightConfirmBtn').classList.add('hidden');renderNightStep();}
 function snitchPickRole(role){nightStage('snitchGuess',{target:nightUIState.snitchTarget,guessedRole:role});}
 
-function resolveNight(){
+function resolveNight(){guardTap(resolveNightCore);}
+function resolveNightCore(){
   var acts=state.nightActions;
   var events=[];
-  function kill(name,reason){
-    var p=state.players.find(function(pl){return pl.name===name&&pl.alive;});
-    if(!p)return false;
-    if(p.role==='Survivalist'&&state.round===1&&!state.survivalistUsed){
-      state.survivalistUsed=true;events.push({text:name+' was protected by Survivalist ability!',type:'shield'});return false;
-    }
-    p.alive=false;events.push({text:reason,type:'death',name:name,role:p.role});addLog(name+' ('+p.role+') - '+reason);
-    applyChainDeaths(state.players.indexOf(p),events);return true;
-  }
   if(acts.cupidLink&&acts.cupidLink.length===2){
     var i=acts.cupidLink[0],j=acts.cupidLink[1];
     if(state.players[i]&&state.players[j]){linkCouple(i,j);events.push({text:'A new couple was linked in the dark...',type:'love'});}
@@ -964,26 +1023,26 @@ function resolveNight(){
   var mT=acts.mafiaTarget,hT=acts.healTarget;
   if(mT){
     if(mT===hT){events.push({text:'Someone was saved by the Healer!',type:'save'});addLog(mT+' was healed.');}
-    else kill(mT,'The Mafia claimed '+mT+"'s life.");
+    else killPlayer(mT,'night','The Mafia claimed '+mT+"'s life.",events);
   }
-  if(acts.assassinTarget)kill(acts.assassinTarget,acts.assassinTarget+' was assassinated.');
+  if(acts.assassinTarget)killPlayer(acts.assassinTarget,'night',acts.assassinTarget+' was assassinated.',events);
   if(acts.vigilanteTarget){
     var vp=state.players.find(function(p){return p.name===acts.vigilanteTarget;});
     if(vp){
-      if(isBadGuy(vp.role))kill(acts.vigilanteTarget,'The Vigilante shot '+acts.vigilanteTarget+' - a confirmed bad guy!');
+      if(isBadGuy(vp.role))killPlayer(acts.vigilanteTarget,'night','The Vigilante shot '+acts.vigilanteTarget+' - a confirmed bad guy!',events);
       else{
-        kill(acts.vigilanteTarget,'The Vigilante shot '+acts.vigilanteTarget+', who was innocent.');
+        killPlayer(acts.vigilanteTarget,'night','The Vigilante shot '+acts.vigilanteTarget+', who was innocent.',events);
         var vig=state.players.find(function(p){return p.role==='Vigilante'&&p.alive;});
-        if(vig)kill(vig.name,'The Vigilante ('+vig.name+') died of guilt.');
+        if(vig)killPlayer(vig.name,'night','The Vigilante ('+vig.name+') died of guilt.',events);
       }
     }
   }
-  if(acts.snitchGuess){
+  if(acts.snitchGuess&&isValidSnitchGuess(acts.snitchGuess.guessedRole)){
     var sg=acts.snitchGuess;
     var tp=state.players.find(function(p){return p.name===sg.target&&p.alive;});
     if(tp){
-      if(tp.role.toLowerCase()===sg.guessedRole.toLowerCase())kill(sg.target,'The Snitch correctly identified '+sg.target+' as the '+sg.guessedRole+'!');
-      else{var sn=state.players.find(function(p){return p.role==='Snitch'&&p.alive;});if(sn)kill(sn.name,'The Snitch guessed wrong and was exposed!');}
+      if(tp.role.toLowerCase()===sg.guessedRole.toLowerCase())killPlayer(sg.target,'snitch','The Snitch correctly identified '+sg.target+' as the '+sg.guessedRole+'!',events);
+      else{var sn=state.players.find(function(p){return p.role==='Snitch'&&p.alive;});if(sn)killPlayer(sn.name,'snitch','The Snitch guessed wrong and was exposed!',events);}
     }
   }
   showScreen('night-resolution');
@@ -994,13 +1053,15 @@ function resolveNight(){
   } else {
     el.innerHTML=events.map(function(ev){
       var col=ev.type==='death'?'#c0392b':ev.type==='save'?'#1e8449':ev.type==='shield'?'#b7950b':'#9b59b6';
-      return '<p style="color:'+col+';font-family:\'Caveat\',cursive;font-size:1.15rem;line-height:1.4">- '+ev.text+'</p>';
+      return '<p class="caveat" style="color:'+col+';font-size:1.15rem;line-height:1.4">- '+ev.text+'</p>';
     }).join('');
   }
   saveState();
 }
 
-function goToDayPhase(){if(checkWinConditions())return;state.phase='day';showScreen('day');renderDayPhase();}
+function goToDayPhase(){guardTap(function(){
+  if(checkWinConditions())return;state.phase='day';showScreen('day');renderDayPhase();
+});}
 function renderDayPhase(){
   document.getElementById('dayRoundLabel').textContent=state.round;
   var alive=state.players.filter(p=>p.alive);
@@ -1032,11 +1093,10 @@ function gunHold(name){
 function gunShoot(shooter,target){
   showConfirm('Confirm Shot',shooter+' shoots '+(target===shooter?'themselves':target)+'?',function(){
     var sp=state.players.find(p=>p.name===shooter);
-    var tp=state.players.find(p=>p.name===target);
-    if(!sp||!tp)return;
-    sp.hasGun=false;tp.alive=false;
-    addLog(shooter+' shot '+target+'.');
-    var events=[];applyChainDeaths(state.players.indexOf(tp),events);events.forEach(e=>addLog(e.text));
+    if(!sp)return;
+    sp.hasGun=false;
+    var events=[];
+    killPlayer(target,'gun',shooter+' shot '+target+'.',events);
     saveState();if(checkWinConditions())return;renderDayPhase();
   });
 }
@@ -1047,23 +1107,29 @@ function voteElim(name){
   document.getElementById('elimConfirmYes').onclick=function(){closeModal('modalElimConfirm');resolveElim(name,false);};
   openModal('modalElimConfirm');
 }
-function resolveElim(name,force){
+function resolveElim(name,force){guardTap(function(){
   var p=state.players.find(pl=>pl.name===name);if(!p||!p.alive)return;
   if(state.round===1&&p.role==='Survivalist'&&!force){
     closeModal('modalElimConfirm');
     alert(name+' is the Survivalist - immune in Round 1! Use Override to force.');return;
   }
-  p.alive=false;addLog(name+' voted out. Role: '+p.role);
   var rd=getRD(p.role),f=fc(p.role);
-  if(p.role==='Jester'){saveState();showElimReveal(name,rd,f,function(){triggerWin('jester');});return;}
-  var events=[];applyChainDeaths(state.players.indexOf(p),events);events.forEach(e=>addLog(e.text));
+  var events=[];
+  killPlayer(name,'vote',name+' was voted out by the town.',events,{bypassImmunity:true});
   saveState();
   showElimReveal(name,rd,f,function(){
-    if(checkWinConditions())return;
-    state.round++;state.nightLog=[];state.nightActions={};state.nightStepIdx=0;state.nightStepHistory=[];state.phase='night';
-    showScreen('night');renderNightPhase();
+    var heartbreak=events.filter(function(e){return e.type==='love';});
+    function proceed(){
+      if(p.deathCause==='vote'&&p.role==='Jester'){triggerWin('jester');return;}
+      if(checkWinConditions())return;
+      state.round++;state.nightLog=[];state.nightActions={};state.nightStepIdx=0;state.nightStepHistory=[];state.phase='night';
+      showScreen('night');renderNightPhase();
+    }
+    if(heartbreak.length){
+      showAlert('💔 Heartbreak',heartbreak.map(function(e){return e.text;}).join(' '),proceed);
+    } else proceed();
   });
-}
+});}
 function showElimReveal(name,rd,f,cb){
   document.getElementById('elimRevealMsg').textContent=name+' has been eliminated!';
   document.getElementById('elimRevealIcon').textContent=rd.emoji;
@@ -1073,11 +1139,11 @@ function showElimReveal(name,rd,f,cb){
   openModal('modalElimReveal');
 }
 function skipVote(){
-  showConfirm('Skip Vote','Skip the vote? No one eliminated this round.',function(){
+  showConfirm('Skip Vote','Skip the vote? No one eliminated this round.',function(){guardTap(function(){
     addLog('Vote skipped - Round '+state.round+'.');
     state.round++;state.nightLog=[];state.nightActions={};state.nightStepIdx=0;state.nightStepHistory=[];state.phase='night';
     showScreen('night');renderNightPhase();
-  });
+  });});
 }
 function openOverrideEliminate(){
   document.getElementById('overridePlayerList').innerHTML=state.players.filter(p=>p.alive).map(p=>
@@ -1093,25 +1159,45 @@ function checkWinConditions(){
   var alive=state.players.filter(p=>p.alive);
   var ab=alive.filter(p=>isBadGuy(p.role));
   var ag=alive.filter(p=>isGoodGuy(p.role));
-  if(ab.length===0){triggerWin('good');return true;}
+  if(ab.length===0){
+    if(ag.length===0){triggerWin('neutral');return true;}
+    triggerWin('good');return true;
+  }
   if(ab.length>=ag.length&&ab.length>0){triggerWin('bad');return true;}
   return false;
+}
+function computeCupidResult(){
+  var hasCupid=state.players.some(function(p){return p.role==='Cupid';});
+  if(!hasCupid||!state.lovedChains.length)return null;
+  var allAlive=state.lovedChains.every(function(chain){
+    return Array.from(chain).every(function(idx){return state.players[idx]&&state.players[idx].alive;});
+  });
+  return allAlive?'win':'lose';
 }
 function triggerWin(w){state.winner=w;clearSaved();showScreen('win');renderWinScreen(w);}
 function renderWinScreen(w){
   var sc=document.getElementById('screen-win');
   sc.className='screen active win-'+w;
-  var c={bad:{icon:'🔪',title:'The Mafia Has Won',sub:'The village has fallen into darkness...',col:'#f9d5d3'},good:{icon:'🎉',title:'Good Guys Win!',sub:'The village is safe! Bad guys defeated!',col:'#c8f0d4'},jester:{icon:'🃏',title:'The Jester Wins!',sub:"You've all been played!",col:'#e8d0f8'}}[w]||{icon:'🎉',title:'Game Over',sub:'',col:'#fff'};
+  var c={bad:{icon:'🔪',title:'The Mafia Has Won',sub:'The village has fallen into darkness...',col:'#f9d5d3'},good:{icon:'🎉',title:'Good Guys Win!',sub:'The village is safe! Bad guys defeated!',col:'#c8f0d4'},jester:{icon:'🃏',title:'The Jester Wins!',sub:"You've all been played!",col:'#e8d0f8'},neutral:{icon:'🕊️',title:'Neutrals Remain',sub:'No town, no mafia - just whoever is left.',col:'#f0e0b0'}}[w]||{icon:'🎉',title:'Game Over',sub:'',col:'#fff'};
   document.getElementById('winIcon').textContent=c.icon;
   document.getElementById('winTitle').textContent=c.title;document.getElementById('winTitle').style.color=c.col;
   document.getElementById('winSubtitle').textContent=c.sub;
+  var cupidLine=document.getElementById('cupidResultLine');
+  var cr=computeCupidResult();
+  if(cr){
+    cupidLine.style.display='';
+    cupidLine.textContent=cr==='win'?'💘 Cupid also wins: the lovers survived!':"💔 Cupid loses: love didn't last.";
+    cupidLine.style.color=cr==='win'?'#1e8449':'#c0392b';
+  } else {
+    cupidLine.style.display='none';
+  }
   document.getElementById('winRounds').textContent=state.round;
   var surv=state.players.filter(p=>p.alive);
   document.getElementById('winSurvivors').innerHTML=surv.map(p=>'<span class="chip">'+esc(p.name)+'</span>').join('')||'<span class="muted small-text">None</span>';
   var roleCol={bad:'#c0392b',good:'#1e8449',neutral:'#b7950b'};
   document.getElementById('winAllRoles').innerHTML=state.players.map(function(p){
     var rd=getRD(p.role),f=fc(p.role),col=roleCol[f]||'#3d2b1a';
-    return '<div style="display:flex;align-items:center;gap:10px;padding:10px 12px;border-radius:12px;background:#ffffff;border:2px solid '+(f==='bad'?'#e8a09a':f==='good'?'#8ed4a4':'#f0d584')+';margin-bottom:8px;box-shadow:2px 3px 0 rgba(0,0,0,.06)"><span style="font-size:1.4rem;flex-shrink:0">'+rd.emoji+'</span><span style="flex:1;font-weight:700;color:#2c1a0e;'+(p.alive?'':'text-decoration:line-through;')+'">'+esc(p.name)+'</span><span style="font-family:\'Caveat\',cursive;font-weight:700;font-size:1rem;color:'+col+'">'+p.role+'</span></div>';
+    return '<div style="display:flex;align-items:center;gap:10px;padding:10px 12px;border-radius:12px;background:#ffffff;border:2px solid '+(f==='bad'?'#e8a09a':f==='good'?'#8ed4a4':'#f0d584')+';margin-bottom:8px;box-shadow:2px 3px 0 rgba(0,0,0,.06)"><span style="font-size:1.4rem;flex-shrink:0">'+rd.emoji+'</span><span style="flex:1;font-weight:700;color:#2c1a0e;'+(p.alive?'':'text-decoration:line-through;opacity:.6;')+'">'+esc(p.name)+'</span><span class="caveat" style="font-weight:700;font-size:1rem;color:'+col+'">'+p.role+'</span></div>';
   }).join('');
   document.getElementById('winGameLog').innerHTML=state.gameLog.map(l=>'<p style="padding:4px 0;border-bottom:1px solid rgba(255,255,255,.1)">'+esc(l)+'</p>').join('');
 }
@@ -1186,9 +1272,10 @@ function openAddPlayerModal(){
   setTimeout(function(){if(ni)ni.focus();},100);
 }
 
-function showAlert(title,msg){
+function showAlert(title,msg,onClose){
   document.getElementById('alertTitle').textContent=title;
   document.getElementById('alertMsg').textContent=msg;
+  document.getElementById('modalAlertOkBtn').onclick=function(){closeModal('modalAlert');if(onClose)onClose();};
   openModal('modalAlert');
 }
 
