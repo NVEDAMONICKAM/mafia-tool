@@ -6,11 +6,12 @@
 <title>Mafia Narrator</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Caveat:wght@700&family=Outfit:wght@600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Caveat:wght@700&family=Outfit:wght@600;700&family=Inter:wght@400;500;600&family=Baloo+2:wght@600;700&display=swap" rel="stylesheet">
 <style>
 :root{
   --font-heading:'Outfit',system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
   --font-body:'Inter',system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+  --font-display:'Baloo 2',var(--font-heading);
   --color-bg:#fef6ee;--color-text:#3a2e2a;--color-muted:#8a7a72;
   --color-good:#8ed4a4;--color-good-bg:#e8f8ee;--color-good-text:#1e8449;
   --color-bad:#e8a09a;--color-bad-bg:#fff0ef;--color-bad-text:#c0392b;
@@ -61,7 +62,7 @@ h1,h2,h3,.caveat{font-family:var(--font-heading);letter-spacing:-.01em}
 .btn-ghost{background:transparent;border-color:#ccc;color:#555;box-shadow:none}
 .btn-sm{font-size:1rem;padding:6px 14px;min-height:36px;border-radius:8px}
 .btn-block{width:100%}
-.card{background:#fff;border:1.5px solid #e8d5c0;border-radius:var(--radius-md);padding:16px;box-shadow:var(--shadow-md)}
+.card{background:#fff;color:var(--color-text);border:1.5px solid #e8d5c0;border-radius:var(--radius-md);padding:16px;box-shadow:var(--shadow-md)}
 .card-bad{background:#fff7f6;border-color:#e8a09a}
 .card-good{background:#f5fbf7;border-color:#8ed4a4}
 .card-neutral{background:#fdfbf0;border-color:#f0d584}
@@ -69,7 +70,7 @@ h1,h2,h3,.caveat{font-family:var(--font-heading);letter-spacing:-.01em}
 .badge-bad{background:#fff0ef;border-color:#e8a09a;color:#c0392b}
 .badge-good{background:#e8f8ee;border-color:#8ed4a4;color:#1e8449}
 .badge-neutral{background:#fdfbf0;border-color:#f0d584;color:#b7950b}
-.chip{display:inline-flex;align-items:center;gap:6px;background:#fef6ee;border:2px solid #e8d5c0;border-radius:20px;padding:5px 12px;font-size:.9rem;font-weight:600}
+.chip{display:inline-flex;align-items:center;gap:6px;background:#fef6ee;color:var(--color-text);border:2px solid #e8d5c0;border-radius:20px;padding:5px 12px;font-size:.9rem;font-weight:600}
 .chip-remove{cursor:pointer;touch-action:manipulation;color:#c0392b;font-size:1.1rem;background:none;border:none;padding:0 0 0 2px;line-height:1}
 .input{font-family:var(--font-body);font-size:1rem;border:2px solid #e0cfc0;border-radius:10px;padding:10px 14px;background:#fff;color:#3a2e2a;min-height:44px;width:100%;outline:none;transition:border-color .2s}
 .input:focus{border-color:#d4a843}
@@ -85,7 +86,7 @@ h1,h2,h3,.caveat{font-family:var(--font-heading);letter-spacing:-.01em}
 .modal-box.modal-full{max-width:480px;max-height:95vh}
 .night-bg{background:#1a1a2e;color:#e8e0f0}
 .night-card{background:rgba(255,255,255,.07);border:2px solid rgba(255,255,255,.15);border-radius:16px;padding:20px;color:#e8e0f0}
-.night-title{color:#c8b8e8;font-size:2rem}
+.night-title{color:#c8b8e8;font-size:2rem;font-family:var(--font-display)}
 .night-text{color:#d8d0e8;font-size:1.1rem;line-height:1.5}
 .night-header{background:rgba(255,255,255,.05);border-bottom:1px solid rgba(255,255,255,.1);padding:12px 16px;display:flex;align-items:center;gap:10px;position:sticky;top:0;z-index:50;flex-shrink:0}
 .player-btn{background:#fff;border:2px solid #e0cfc0;border-radius:12px;padding:12px 16px;text-align:left;cursor:pointer;touch-action:manipulation;-webkit-tap-highlight-color:transparent;font-family:var(--font-body);font-size:1rem;font-weight:600;min-height:50px;width:100%;display:flex;align-items:center;gap:10px;transition:background .15s,border-color .15s,transform .1s;box-shadow:2px 3px 0 rgba(0,0,0,.06)}
@@ -107,7 +108,7 @@ h1,h2,h3,.caveat{font-family:var(--font-heading);letter-spacing:-.01em}
 .counter-btn:disabled{opacity:.3;cursor:not-allowed}
 .role-reveal-card{background:#fef6ee;border:3px solid #e8d5c0;border-radius:24px;padding:32px 24px;text-align:center;max-width:340px;width:100%;box-shadow:6px 8px 0 rgba(0,0,0,.15)}
 .role-icon-lg{font-size:64px;line-height:1.1;display:block;margin-bottom:8px}
-.role-name-lg{font-size:2.4rem;margin-bottom:8px}
+.role-name-lg{font-size:2.4rem;margin-bottom:8px;font-family:var(--font-display)}
 .role-desc{font-size:.95rem;line-height:1.5;color:#5a4a42;margin-top:10px}
 .step-indicator{display:flex;justify-content:center;gap:6px;padding:8px 0;flex-wrap:wrap}
 .step-dot{width:8px;height:8px;border-radius:50%;background:rgba(255,255,255,.25)}
@@ -118,7 +119,7 @@ h1,h2,h3,.caveat{font-family:var(--font-heading);letter-spacing:-.01em}
 #floatingPanelBtn.visible{display:flex}
 .header-bar{background:#fef6ee;border-bottom:2px dashed #e0cfc0;padding:14px 16px;display:flex;align-items:center;gap:10px;position:sticky;top:0;z-index:50;flex-shrink:0}
 .header-title{font-family:var(--font-heading);font-weight:700;font-size:1.15rem;flex:1}
-.collapsible-header{cursor:pointer;display:flex;align-items:center;justify-content:space-between;padding:10px 14px;background:#fef6ee;border:2px solid #e0cfc0;border-radius:10px;font-weight:600;user-select:none}
+.collapsible-header{cursor:pointer;display:flex;align-items:center;justify-content:space-between;padding:10px 14px;background:#fef6ee;color:var(--color-text);border:2px solid #e0cfc0;border-radius:10px;font-weight:600;user-select:none}
 .collapsible-body{display:none;padding:12px 0 0}
 .collapsible-body.open{display:block}
 .role-grid-item{display:flex;align-items:flex-start;gap:10px;padding:10px 0;border-bottom:1px dashed #e0cfc0}
@@ -137,6 +138,9 @@ h1,h2,h3,.caveat{font-family:var(--font-heading);letter-spacing:-.01em}
 .bottom-bar{position:fixed;left:0;right:0;bottom:0;z-index:80;max-width:480px;margin:0 auto;background:rgba(254,246,238,.86);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border-top:1.5px solid rgba(224,207,192,.9);box-shadow:0 -6px 18px rgba(0,0,0,.07);padding:12px 16px calc(12px + env(safe-area-inset-bottom,0px))}
 @supports not (backdrop-filter: blur(1px)){.bottom-bar{background:#fef6ee}}
 #screen-title{background:#fef6ee;align-items:center;justify-content:center;padding:32px 16px}
+.title-tagline{font-family:var(--font-display);font-weight:600;letter-spacing:.02em}
+.btn-title{font-family:var(--font-display);font-weight:700;letter-spacing:.03em}
+#winTitle,#elimRevealMsg,#elimRevealRole{font-family:var(--font-display)}
 .title-logo{max-width:300px;width:90%;border-radius:16px}
 .couple-card{background:rgba(200,184,232,.15);border:2px solid #c8b8e8;border-radius:20px;padding:28px 20px;text-align:center;margin-bottom:16px}
 @keyframes cardFlipIn{from{transform:rotateY(90deg) scale(.8);opacity:0}to{transform:rotateY(0) scale(1);opacity:1}}
@@ -151,7 +155,7 @@ h1,h2,h3,.caveat{font-family:var(--font-heading);letter-spacing:-.01em}
 <div id="screen-title" class="screen center">
   <div class="flex-col center gap-16" style="max-width:360px;width:100%">
     <img src="mafia_logo.png" alt="Mafia Narrator" class="title-logo" onerror="this.style.display='none'">
-    <p class="caveat" style="font-size:1.3rem;color:#8b6e5a;margin-top:-8px;text-align:center;font-weight:600">The Narrator's Toolkit</p>
+    <p class="title-tagline" style="font-size:1.3rem;color:#8b6e5a;margin-top:-8px;text-align:center">The Narrator's Toolkit</p>
     <div id="resume-banner" class="alert alert-info hidden" style="width:100%">
       <p class="small-text"><strong>Resume previous game?</strong></p>
       <div class="flex-row mt-8" style="gap:8px">
@@ -160,9 +164,9 @@ h1,h2,h3,.caveat{font-family:var(--font-heading);letter-spacing:-.01em}
       </div>
     </div>
     <div class="flex-col gap-12 full-width">
-      <button class="btn btn-primary btn-block" onclick="startNew()" style="font-size:1.5rem;padding:16px">PLAY</button>
-      <button class="btn btn-ghost btn-block" onclick="openRoleListModal()">ROLE LIST</button>
-      <button class="btn btn-ghost btn-block" onclick="openInfoModal()">INFO</button>
+      <button class="btn btn-primary btn-block btn-title" onclick="startNew()" style="font-size:1.6rem;padding:16px">PLAY</button>
+      <button class="btn btn-ghost btn-block btn-title" onclick="openRoleListModal()">ROLE LIST</button>
+      <button class="btn btn-ghost btn-block btn-title" onclick="openInfoModal()">INFO</button>
     </div>
   </div>
 </div>
@@ -180,7 +184,7 @@ h1,h2,h3,.caveat{font-family:var(--font-heading);letter-spacing:-.01em}
     <div id="playerChips" class="flex-row flex-wrap gap-8" style="min-height:40px"></div>
   </div>
   <div class="bottom-bar">
-    <button id="nextToRolesBtn" class="btn btn-success btn-block" onclick="goToRoles()" disabled>Next: Assign Roles</button>
+    <button id="nextToRolesBtn" class="btn btn-success btn-block btn-title" onclick="goToRoles()" disabled>Next: Assign Roles</button>
   </div>
 </div>
 <div id="screen-setup-roles" class="screen">
@@ -213,7 +217,7 @@ h1,h2,h3,.caveat{font-family:var(--font-heading);letter-spacing:-.01em}
     </div>
   </div>
   <div class="bottom-bar">
-    <button id="startGameBtn" class="btn btn-danger btn-block" onclick="startGameReveal()">Start Game: Reveal Roles</button>
+    <button id="startGameBtn" class="btn btn-danger btn-block btn-title" onclick="startGameReveal()">Start Game: Reveal Roles</button>
   </div>
 </div>
 <div id="screen-role-reveal" class="screen" style="height:100vh;height:100dvh;overflow:hidden">
@@ -225,7 +229,7 @@ h1,h2,h3,.caveat{font-family:var(--font-heading);letter-spacing:-.01em}
   <p class="small-text muted text-center" style="padding:8px 16px;font-style:italic;flex-shrink:0">Pass the phone to each player privately. Tap their name to reveal their role.</p>
   <div id="revealPlayerList" class="flex-col gap-8" style="flex:1;overflow-y:auto;padding:0 16px 100px;max-width:480px;margin:0 auto;width:100%"></div>
   <div style="padding-top:12px;padding-right:16px;padding-left:16px;padding-bottom:max(20px,env(safe-area-inset-bottom,0px));max-width:480px;margin:0 auto;width:100%;flex-shrink:0;background:#fef6ee;border-top:1.5px dashed #e8c8b8">
-    <button id="beginNightBtn" class="btn btn-dark btn-block" onclick="beginNight()" disabled>Begin Night 1</button>
+    <button id="beginNightBtn" class="btn btn-dark btn-block btn-title" onclick="beginNight()" disabled>Begin Night 1</button>
   </div>
 </div>
 <div id="screen-night" class="screen night-bg" style="height:100vh;height:100dvh;overflow:hidden">
@@ -299,8 +303,8 @@ h1,h2,h3,.caveat{font-family:var(--font-heading);letter-spacing:-.01em}
       </div>
     </div>
     <div class="flex-col gap-12 mt-8">
-      <button class="btn btn-primary btn-block" onclick="playAgain()">Play Again</button>
-      <button class="btn btn-ghost btn-block" onclick="samePlayersNewGame()">Same Players, New Game</button>
+      <button class="btn btn-primary btn-block btn-title" onclick="playAgain()">Play Again</button>
+      <button class="btn btn-ghost btn-block btn-title" onclick="samePlayersNewGame()">Same Players, New Game</button>
     </div>
     <div style="height:40px"></div>
   </div>
@@ -1187,7 +1191,7 @@ function renderWinScreen(w){
   if(cr){
     cupidLine.style.display='';
     cupidLine.textContent=cr==='win'?'💘 Cupid also wins: the lovers survived!':"💔 Cupid loses: love didn't last.";
-    cupidLine.style.color=cr==='win'?'#1e8449':'#c0392b';
+    cupidLine.style.color=cr==='win'?'#a8e8bc':'#f5b0a8';
   } else {
     cupidLine.style.display='none';
   }
